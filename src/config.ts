@@ -33,6 +33,8 @@ const {
   REACT_APP_SNAPSHOT_SPACE,
 } = process.env;
 
+console.log(process.env);
+
 export const ENVIRONMENT = REACT_APP_ENVIRONMENT as EnvironmentName | undefined;
 
 /**
