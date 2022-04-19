@@ -28,7 +28,7 @@ export default function Routes() {
     <Switch>
       {[
         // Index page
-        <Route key="splash" exact path="/" render={() => <GetStarted />} />,
+        <Route key="splash" exact path="/#/" render={() => <GetStarted />} />,
         <Route
           key="join"
           exact
