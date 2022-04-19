@@ -29,32 +29,11 @@ export default function Routes() {
       {[
         // Index page
         <Route key="splash" exact path="/" render={() => <GetStarted />} />,
-        ENABLE_KYC_ONBOARDING && (
-          <Route
-            key="join"
-            exact
-            path="/join"
-            render={() => <KycOnboardingForm />}
-          />
-        ),
         <Route
-          key="onboard"
+          key="join"
           exact
-          path="/onboard"
-          render={() => <CreateOnboardingProposal />}
-        />,
-
-        <Route
-          key="onboarding"
-          exact
-          path="/onboarding"
-          render={() => <Onboarding />}
-        />,
-        <Route
-          key="onboarding-details"
-          exact
-          path={`/onboarding/${proposalIdParameter}`}
-          render={() => <OnboardingDetails />}
+          path="/join"
+          render={() => <CreateTributeProposal />}
         />,
         <Route
           key="transfer"
@@ -73,12 +52,6 @@ export default function Routes() {
           exact
           path={`/transfers/${proposalIdParameter}`}
           render={() => <TransferDetails />}
-        />,
-        <Route
-          key="tribute"
-          exact
-          path="/tribute"
-          render={() => <CreateTributeProposal />}
         />,
         <Route
           key="tributes"

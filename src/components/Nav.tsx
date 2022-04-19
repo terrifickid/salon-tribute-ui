@@ -184,30 +184,12 @@ export function NavHamburger() {
                   <Web3ModalButton />
                 </div>
                 <ul className="nav__list">
-                  {ENABLE_KYC_ONBOARDING && (
-                    <li
-                      onClick={() => {
-                        handleMenuModalClose(false);
-                      }}>
-                      <NavLink to="/join">
-                        <span>Join (KYC)</span>
-                      </NavLink>
-                    </li>
-                  )}
                   <li
                     onClick={() => {
                       handleMenuModalClose(false);
                     }}>
-                    <NavLink to="/onboarding">
-                      <span>Onboarding</span>
-                    </NavLink>
-                  </li>
-                  <li
-                    onClick={() => {
-                      handleMenuModalClose(false);
-                    }}>
-                    <NavLink to="/tributes">
-                      <span>Tribute</span>
+                    <NavLink to="/join">
+                      <span>Join</span>
                     </NavLink>
                   </li>
                   <li
