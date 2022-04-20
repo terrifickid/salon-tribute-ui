@@ -184,38 +184,54 @@ export function NavHamburger() {
                   <Web3ModalButton />
                 </div>
                 <ul className="nav__list">
+                  {!isCurrentMemberOrDelegateConnected && (
+                    <li
+                      onClick={() => {
+                        handleMenuModalClose(false);
+                      }}>
+                      <NavLink to="/tribute">
+                        <span>Join</span>
+                      </NavLink>
+                    </li>
+                  )}
                   <li
                     onClick={() => {
                       handleMenuModalClose(false);
                     }}>
-                    <NavLink to="/join">
-                      <span>Join</span>
+                    <NavLink to="/tributes">
+                      <span>Applications</span>
                     </NavLink>
                   </li>
-                  <li
-                    onClick={() => {
-                      handleMenuModalClose(false);
-                    }}>
-                    <NavLink to="/transfers">
-                      <span>Transfer</span>
-                    </NavLink>
-                  </li>
-                  <li
-                    onClick={() => {
-                      handleMenuModalClose(false);
-                    }}>
-                    <NavLink to="/governance">
-                      <span>Governance</span>
-                    </NavLink>
-                  </li>
-                  <li
-                    onClick={() => {
-                      handleMenuModalClose(false);
-                    }}>
-                    <NavLink to="/members">
-                      <span>Members</span>
-                    </NavLink>
-                  </li>
+                  {isCurrentMemberOrDelegateConnected && (
+                    <li
+                      onClick={() => {
+                        handleMenuModalClose(false);
+                      }}>
+                      <NavLink to="/transfers">
+                        <span>Transfer</span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {isCurrentMemberOrDelegateConnected && (
+                    <li
+                      onClick={() => {
+                        handleMenuModalClose(false);
+                      }}>
+                      <NavLink to="/governance">
+                        <span>Governance</span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {isCurrentMemberOrDelegateConnected && (
+                    <li
+                      onClick={() => {
+                        handleMenuModalClose(false);
+                      }}>
+                      <NavLink to="/members">
+                        <span>Members</span>
+                      </NavLink>
+                    </li>
+                  )}
                   {/* The Profile link for the member account is available to both the connected member address and its delegate address. */}
                   {isCurrentMemberOrDelegateConnected && (
                     <li
@@ -260,8 +276,7 @@ export default function Nav() {
         <div className="nav-header">
           <div className="nav-header__menu-container">
             {/* NAV */}
-            <NavLinks />
-            <DaoTokenHolder border={'1px solid #c3d6dc'} />
+
             <NavHamburger />
             <div className="nav-header__walletconnect-button-container">
               <Web3ModalButton />

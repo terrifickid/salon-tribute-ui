@@ -24,31 +24,6 @@ export default function App(props?: AppProps) {
    * Variables
    */
 
-  const {renderMainContent} = props || {};
-
-  const mainContent: React.ReactNode = (
-    <main>{renderMainContent ? renderMainContent() : <Routes />}</main>
-  );
-
-  /**
-   * Functions
-   */
-
-  function renderContent() {
-    // The index path has its own template
-    if (pathname === '/') {
-      return <>{mainContent}</>;
-    }
-
-    // Render default template
-    return (
-      <>
-        <Header />
-        {mainContent}
-        <Footer />
-      </>
-    );
-  }
 
   /**
    * Render
@@ -60,7 +35,9 @@ export default function App(props?: AppProps) {
       <Head />
 
       {/* CONTENT */}
-      {renderContent()}
+
+        <Routes />
+    
 
       {/* GLOBAL MODALS */}
       <GlobalConnectWalletModal />

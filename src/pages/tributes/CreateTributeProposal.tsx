@@ -353,8 +353,7 @@ export default function CreateTributeProposal() {
             metadata: {
               proposalAmountValues,
               submitActionArgs,
-              accountAuthorizedToProcessPassedProposal:
-                proposerAddressToChecksum,
+              accountAuthorizedToProcessPassedProposal: proposerAddressToChecksum,
             },
           },
           adapterName: ContractAdapterNames.tribute,
@@ -660,17 +659,367 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
     <Wrap className="section-wrapper">
       <FadeIn>
         <div className="titlebar">
-          <h2 className="titlebar__title">Tribute Proposal</h2>
+          <h2 className="titlebar__title">Become a Member</h2>
         </div>
 
         <div className="form-wrapper">
           <div className="form__description">
+            <p>For U.S. accredited investors</p>
             <p>
-              Nulla aliquet porttitor venenatis. Donec a dui et dui fringilla
-              consectetur id nec massa. Aliquam erat volutpat. Sed ut dui ut
-              lacus dictum fermentum vel tincidunt neque. Sed sed lacinia...
+              Salon is a for-profit member-managed limited liability company
+              organized in Delaware.{' '}
             </p>
+            <p>
+              Salon will have up to 100 initial members who will pool their
+              capital to build a world class collection of contemporary art.
+              Each member can purchase 1% blocks of Salon units for $30,000 (up
+              to 10% for $300,000).
+            </p>
+            <p>Interested? Get accredited below.</p>
           </div>
+
+          <form
+            style={{width: '100%'}}
+            action="https://getform.io/f/9ddb7b44-927e-475f-bf03-6e92cd6c71a8"
+            method="POST">
+            <div className="rendered-form">
+              <div className="form__input-row formbuilder-radio-group form-group form__input-row field-type_of_entity">
+                <label
+                  htmlFor="type_of_entity"
+                  className="formbuilder-radio-group-label form__input-row-label">
+                  Type of Entity<span className="formbuilder-required">*</span>
+                </label>
+                <div className="radio-group">
+                  <div className="formbuilder-radio">
+                    <input
+                      name="type_of_entity"
+                      id="type_of_entity-0"
+                      required
+                      aria-required="true"
+                      value="person"
+                      type="radio"
+                    />
+                    <label htmlFor="type_of_entity-0">Person</label>
+                  </div>
+                  <div className="formbuilder-radio">
+                    <input
+                      name="type_of_entity"
+                      id="type_of_entity-1"
+                      required
+                      aria-required="true"
+                      value="company"
+                      type="radio"
+                    />
+                    <label htmlFor="type_of_entity-1">Company</label>
+                  </div>
+                  <div className="formbuilder-radio">
+                    <input
+                      name="type_of_entity"
+                      id="type_of_entity-2"
+                      required
+                      aria-required="true"
+                      value="trust"
+                      type="radio"
+                    />
+                    <label htmlFor="type_of_entity-2">Trust</label>
+                  </div>
+                </div>
+              </div>
+              <div className="form__input-row formbuilder-text form-group form__input-row field-legal_name_of_person">
+                <label
+                  htmlFor="legal_name_of_person"
+                  className="formbuilder-text-label form__input-row-label">
+                  Legal Name of Person
+                  <span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="legal_name_of_person"
+                  id="legal_name_of_person"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-email_address">
+                <label
+                  htmlFor="email_address"
+                  className="formbuilder-text-label form__input-row-label">
+                  Email Address<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="email_address"
+                  id="email_address"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-text-1650421756581">
+                <label
+                  htmlFor="text-1650421756581"
+                  className="formbuilder-text-label form__input-row-label">
+                  Home Address<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="text-1650421756581"
+                  id="text-1650421756581"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-select form-group form__input-row field-select-1650421785515">
+                <label
+                  htmlFor="select-1650421785515"
+                  className="formbuilder-select-label form__input-row-label">
+                  Month<span className="formbuilder-required">*</span>
+                </label>
+                <select
+                  className="form-control"
+                  name="select-1650421785515"
+                  id="select-1650421785515"
+                  required
+                  aria-required="true">
+                  <option value="01" selected id="select-1650421785515-0">
+                    01
+                  </option>
+                  <option value="02" id="select-1650421785515-1">
+                    02
+                  </option>
+                  <option value="03" id="select-1650421785515-2">
+                    03
+                  </option>
+                </select>
+              </div>
+              <div className="formbuilder-select form-group form__input-row field-day">
+                <label
+                  htmlFor="day"
+                  className="formbuilder-select-label form__input-row-label">
+                  Day<span className="formbuilder-required">*</span>
+                </label>
+                <select name="day" id="day" required aria-required="true">
+                  <option value="01" selected id="day-0">
+                    01
+                  </option>
+                  <option value="02" id="day-1">
+                    02
+                  </option>
+                  <option value="03" id="day-2">
+                    03
+                  </option>
+                </select>
+              </div>
+              <div className="formbuilder-select form-group form__input-row field-year">
+                <label
+                  htmlFor="year"
+                  className="formbuilder-select-label form__input-row-label">
+                  Year<span className="formbuilder-required">*</span>
+                </label>
+                <select name="year" id="year" required aria-required="true">
+                  <option value="2000" selected id="year-0">
+                    2000
+                  </option>
+                  <option value="2001" id="year-1">
+                    2001
+                  </option>
+                  <option value="2003" id="year-2">
+                    2003
+                  </option>
+                </select>
+              </div>
+              <div className="formbuilder-file form-group form__input-row field-id_scan">
+                <label
+                  htmlFor="id_scan"
+                  className="formbuilder-file-label form__input-row-label">
+                  ID Scan<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="file"
+                  name="id_scan"
+                  id="id_scan"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-file form-group form__input-row field-back_of_id_scan">
+                <label
+                  htmlFor="back_of_id_scan"
+                  className="formbuilder-file-label form__input-row-label">
+                  Back of ID Scan (Optional)
+                </label>
+                <input
+                  type="file"
+                  name="back_of_id_scan"
+                  id="back_of_id_scan"
+                />
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-passport_or_id_number">
+                <label
+                  htmlFor="passport_or_id_number"
+                  className="formbuilder-text-label form__input-row-label">
+                  Passport or ID Number
+                  <span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="passport_or_id_number"
+                  id="passport_or_id_number"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-Phone-Number">
+                <label
+                  htmlFor="Phone-Number"
+                  className="formbuilder-text-label form__input-row-label">
+                  Phone Number<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="Phone-Number"
+                  id="Phone-Number"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-occupation">
+                <label
+                  htmlFor="occupation"
+                  className="formbuilder-text-label form__input-row-label">
+                  Occupation<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="occupation"
+                  id="occupation"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-radio-group form-group form__input-row field-basis_of_accreditation">
+                <label
+                  htmlFor="basis_of_accreditation"
+                  className="formbuilder-radio-group-label form__input-row-label">
+                  Basis of Accreditation
+                  <span className="formbuilder-required">*</span>
+                </label>
+                <div className="radio-group">
+                  <div className="formbuilder-radio">
+                    <input
+                      name="basis_of_accreditation"
+                      id="basis_of_accreditation-0"
+                      required
+                      aria-required="true"
+                      value="income"
+                      type="radio"
+                    />
+                    <label htmlFor="basis_of_accreditation-0">
+                      Income of $200k ($300K with spouse) in each of the last 2
+                      years
+                    </label>
+                  </div>
+                  <div className="formbuilder-radio">
+                    <input
+                      name="basis_of_accreditation"
+                      id="basis_of_accreditation-1"
+                      required
+                      aria-required="true"
+                      value="net-worth"
+                      type="radio"
+                    />
+                    <label htmlFor="basis_of_accreditation-1">
+                      Net worth over $1M
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-income_recent">
+                <label
+                  htmlFor="income_recent"
+                  className="formbuilder-text-label form__input-row-label">
+                  Income<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="income_recent"
+                  id="income_recent"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-file form-group form__input-row field-income_recent_documentation">
+                <label
+                  htmlFor="income_recent_documentation"
+                  className="formbuilder-file-label form__input-row-label">
+                  Documentation<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="file"
+                  name="income_recent_documentation"
+                  id="income_recent_documentation"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-text form-group form__input-row field-income_last">
+                <label
+                  htmlFor="income_last"
+                  className="formbuilder-text-label form__input-row-label">
+                  Income<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="income_last"
+                  id="income_last"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-file form-group form__input-row field-income_last_documentation">
+                <label
+                  htmlFor="income_last_documentation"
+                  className="formbuilder-file-label form__input-row-label">
+                  Documenation<span className="formbuilder-required">*</span>
+                </label>
+                <input
+                  type="file"
+                  name="income_last_documentation"
+                  id="income_last_documentation"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div className="formbuilder-checkbox-group form-group form__input-row field-current_year_income">
+                <label
+                  htmlFor="current_year_income"
+                  className="formbuilder-checkbox-group-label form__input-row-label">
+                  Current Year Income
+                  <span className="formbuilder-required">*</span>
+                </label>
+                <div className="checkbox-group">
+                  <div className="formbuilder-checkbox">
+                    <input
+                      name="current_year_income[]"
+                      id="current_year_income-0"
+                      aria-required="true"
+                      value="true"
+                      type="checkbox"
+                      checked
+                    />
+                    <label htmlFor="current_year_income-0">
+                      I expect to earn an income of at least $200k ($300k with
+                      spouse) again this year.{' '}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="_captcha" value="false" />
+            <button type="submit">Send</button>
+          </form>
 
           {/* RENDER CHILDREN */}
           {props.children}

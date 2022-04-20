@@ -67,7 +67,8 @@ export default function GetStarted() {
 
           <div className="landing">
             <div className="landing__subtitle">
-              A next generation DAO framework
+            The art world's DAO.<br />
+Collecting contemporary art together.
             </div>
 
             <div className="landing__img">
@@ -78,7 +79,7 @@ export default function GetStarted() {
               <button
                 className="button"
                 onClick={() => {
-                  history.push(ENABLE_KYC_ONBOARDING ? '/join' : '/onboard');
+                  history.push(ENABLE_KYC_ONBOARDING ? '/join' : '/tribute');
                 }}>
                 Join
               </button>
