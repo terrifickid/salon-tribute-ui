@@ -469,11 +469,13 @@ export default function CreateTributeProposal() {
         </div>
 
         {/* ERC20 ADDRESS */}
-        <div className="form__input-row" style={{visibility: 'hidden', height: '0rem', margin: '0rem'}}>
+        <div
+          className="form__input-row"
+          style={{ visibility: "hidden", height: "0rem", margin: "0rem" }}
+        >
           <label className="form__input-row-label">ERC20 Address</label>
           <div className="form__input-row-fieldwrap">
             <input
-
               aria-describedby={`error-${Fields.erc20Address}`}
               aria-invalid={errors.erc20Address ? "true" : "false"}
               name={Fields.erc20Address}
@@ -502,18 +504,28 @@ export default function CreateTributeProposal() {
           <label className="formbuilder-radio-group-label form__input-row-label">
             Amount
           </label>
-          <div style={{width: '100%'}} className="bootstrap-wrapper">
-            <div className="row" style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{ width: "100%" }} className="bootstrap-wrapper">
+            <div
+              className="row"
+              style={{ display: "flex", alignItems: "center" }}
+            >
               <div className="col-md-8">
-                <input type="range" defaultValue="1" id="points" onChange={amountChange} name="points" min="1" max="10" />
+                <input
+                  type="range"
+                  defaultValue="1"
+                  id="points"
+                  onChange={amountChange}
+                  name="points"
+                  min="1"
+                  max="10"
+                />
               </div>
               <div className="col-md-4">
-              <span id="aVal">1%</span>
+                <span id="aVal">1%</span>
               </div>
             </div>
           </div>
         </div>
-
 
         {/* TRIBUTE AMOUNT */}
         <div className="form__input-row">
@@ -522,7 +534,7 @@ export default function CreateTributeProposal() {
             <div className="input__suffix-wrap">
               <input
                 id="salonAmount"
-                readonly="true"
+                readOnly
                 defaultValue="1"
                 className="input__suffix"
                 aria-describedby={`error-${Fields.tributeAmount}`}
@@ -555,10 +567,13 @@ export default function CreateTributeProposal() {
                 })}
                 type="text"
                 disabled={true}
-                  style={{backgroundColor: '#f7fafd'}}
+                style={{ backgroundColor: "#f7fafd" }}
               />
 
-              <div style={{width: '5rem', backgroundColor: '#f7fafd'}} className="input__suffix-item">
+              <div
+                style={{ width: "5rem", backgroundColor: "#f7fafd" }}
+                className="input__suffix-item"
+              >
                 {erc20Details?.symbol || "___"}
               </div>
             </div>
@@ -613,10 +628,10 @@ export default function CreateTributeProposal() {
                 },
               })}
               type="text"
-                readonly="true"
+              readOnly
               disabled={true}
               defaultValue="3"
-              style={{backgroundColor: '#f7fafd'}}
+              style={{ backgroundColor: "#f7fafd" }}
             />
 
             <InputError
@@ -632,7 +647,10 @@ export default function CreateTributeProposal() {
         </div>
 
         {/* DESCRIPTION */}
-        <div style={{marginBottom: '0', display:'none'}} className="form__textarea-row">
+        <div
+          style={{ marginBottom: "0", display: "none" }}
+          className="form__textarea-row"
+        >
           <label className="form__input-row-label">Description</label>
           <div className="form__input-row-fieldwrap">
             <textarea
@@ -646,7 +664,12 @@ export default function CreateTributeProposal() {
 
         {/* SUBMIT */}
         <button
-        style={{visibility: 'hidden', height: '0', margin: '0', padding: '0'}}
+          style={{
+            visibility: "hidden",
+            height: "0",
+            margin: "0",
+            padding: "0",
+          }}
           id="submitBtn"
           className="button"
           disabled={isInProcessOrDone}
@@ -684,20 +707,17 @@ export default function CreateTributeProposal() {
 
       <form
         id="kycSubmit"
-        style={{ width: "100%", margin: '0' }}
+        style={{ width: "100%", margin: "0" }}
         action="https://getform.io/f/9ddb7b44-927e-475f-bf03-6e92cd6c71a8"
         method="POST"
         className="form"
         onSubmit={kycSubmit}
       >
-
-
         <div className="rendered-form">
-
-
-
-
-          <div style={{marginTop: '1rem'}} className="form__input-row formbuilder-radio-group form-group form__input-row field-type_of_entity">
+          <div
+            style={{ marginTop: "1rem" }}
+            className="form__input-row formbuilder-radio-group form-group form__input-row field-type_of_entity"
+          >
             <label
               htmlFor="type_of_entity"
               className="formbuilder-radio-group-label form__input-row-label"
@@ -712,6 +732,7 @@ export default function CreateTributeProposal() {
                   aria-required="true"
                   value="person"
                   type="radio"
+                  required
                 />
                 <label htmlFor="type_of_entity-0">Person</label>
               </div>
@@ -722,6 +743,7 @@ export default function CreateTributeProposal() {
                   aria-required="true"
                   value="company"
                   type="radio"
+                  required
                 />
                 <label htmlFor="type_of_entity-1">Company</label>
               </div>
@@ -732,6 +754,7 @@ export default function CreateTributeProposal() {
                   aria-required="true"
                   value="trust"
                   type="radio"
+                  required
                 />
                 <label htmlFor="type_of_entity-2">Trust</label>
               </div>
@@ -743,13 +766,13 @@ export default function CreateTributeProposal() {
               className="formbuilder-text-label form__input-row-label"
             >
               Legal Name of Person
-
             </label>
             <input
               type="text"
               name="legal_name_of_person"
               id="legal_name_of_person"
               aria-required="true"
+              required
             />
           </div>
           <div className="formbuilder-text form-group form__input-row field-email_address">
@@ -764,6 +787,7 @@ export default function CreateTributeProposal() {
               name="email_address"
               id="email_address"
               aria-required="true"
+              required
             />
           </div>
           <div className="formbuilder-text form-group form__input-row field-text-1650421756581">
@@ -779,6 +803,7 @@ export default function CreateTributeProposal() {
               name="text-1650421756581"
               id="text-1650421756581"
               aria-required="true"
+              required
             />
           </div>
 
@@ -790,16 +815,17 @@ export default function CreateTributeProposal() {
               Date of Birth
             </label>
 
-            <div style={{width: '100%'}} className="bootstrap-wrapper">
+            <div style={{ width: "100%" }} className="bootstrap-wrapper">
               <div className="row">
                 <div className="col-md-4">
                   <select
                     className="form-control"
-                    name="select-1650421785515"
+                    name="DOB_month"
                     id="select-1650421785515"
                     aria-required="true"
+                    required
                   >
-                    <option value="01"  id="select-1650421785515-0">
+                    <option value="01" id="select-1650421785515-0">
                       01
                     </option>
                     <option value="02" id="select-1650421785515-1">
@@ -815,8 +841,14 @@ export default function CreateTributeProposal() {
                   style={{ height: "1rem" }}
                 ></div>
                 <div className="col-md-4">
-                  <select name="day" id="day" required aria-required="true">
-                    <option value="01"  id="day-0">
+                  <select
+                    name="DOB_day"
+                    id="day"
+                    required
+                    aria-required="true"
+                    required
+                  >
+                    <option value="01" id="day-0">
                       01
                     </option>
                     <option value="02" id="day-1">
@@ -832,8 +864,13 @@ export default function CreateTributeProposal() {
                   style={{ height: "1rem" }}
                 ></div>
                 <div className="col-md-4">
-                  <select name="year" id="year" aria-required="true">
-                    <option value="2000"  id="year-0">
+                  <select
+                    name="DOB_year"
+                    id="year"
+                    aria-required="true"
+                    required
+                  >
+                    <option value="2000" id="year-0">
                       2000
                     </option>
                     <option value="2001" id="year-1">
@@ -847,38 +884,45 @@ export default function CreateTributeProposal() {
               </div>
             </div>
           </div>
-          <div className="formbuilder-file form-group form__input-row field-id_scan" style={{display: 'block'}}>
-            <p><label
-              htmlFor="id_scan"
-              className="formbuilder-file-label"
-            >
-              ID Scan
-            </label></p>
-            <p>A passport is highly recommended but other forms of government–issued color photo ID (such as a national identity card or driver’s license) are also acceptable.</p>
+          <div
+            className="formbuilder-file form-group form__input-row field-id_scan"
+            style={{ display: "block" }}
+          >
             <p>
-            <input
-              type="file"
-              name="id_scan"
-              id="id_scan"
-              aria-required="true"
-            />
+              <label htmlFor="id_scan" className="formbuilder-file-label">
+                ID Scan
+              </label>
+            </p>
+            <p>
+              A passport is highly recommended but other forms of
+              government–issued color photo ID (such as a national identity card
+              or driver’s license) are also acceptable.
+            </p>
+            <p>
+              <input
+                type="file"
+                name="id_scan"
+                id="id_scan"
+                aria-required="true"
+              />
             </p>
           </div>
-          <div className="formbuilder-file form-group form__input-row field-back_of_id_scan"   style={{display: 'block'}}>
-            <p><label
-              htmlFor="back_of_id_scan"
-              className="formbuilder-file-label form__input-row-label"
-
-            >
-              Back of ID Scan (Optional)
-            </label></p>
+          <div
+            className="formbuilder-file form-group form__input-row field-back_of_id_scan"
+            style={{ display: "block" }}
+          >
+            <p>
+              <label
+                htmlFor="back_of_id_scan"
+                className="formbuilder-file-label form__input-row-label"
+              >
+                Back of ID Scan (Optional)
+              </label>
+            </p>
             <p>Not required if you uploaded a passport above.</p>
             <p>
-            <input
-              type="file"
-              name="back_of_id_scan"
-              id="back_of_id_scan"
-            /></p>
+              <input type="file" name="back_of_id_scan" id="back_of_id_scan" />
+            </p>
           </div>
           <div className="formbuilder-text form-group form__input-row field-passport_or_id_number">
             <label
@@ -886,13 +930,13 @@ export default function CreateTributeProposal() {
               className="formbuilder-text-label form__input-row-label"
             >
               Passport or ID Number
-
             </label>
             <input
               type="text"
               name="passport_or_id_number"
               id="passport_or_id_number"
               aria-required="true"
+              required
             />
           </div>
           <div className="formbuilder-text form-group form__input-row field-Phone-Number">
@@ -907,6 +951,7 @@ export default function CreateTributeProposal() {
               name="Phone-Number"
               id="Phone-Number"
               aria-required="true"
+              required
             />
           </div>
           <div className="formbuilder-text form-group form__input-row field-occupation">
@@ -922,6 +967,7 @@ export default function CreateTributeProposal() {
               name="occupation"
               id="occupation"
               aria-required="true"
+              required
             />
           </div>
           <h3>How are you accredited?</h3>
@@ -932,7 +978,6 @@ export default function CreateTributeProposal() {
               className="formbuilder-radio-group-label form__input-row-label"
             >
               Basis of Accreditation
-
             </label>
             <div className="radio-group">
               <div className="formbuilder-radio">
@@ -942,6 +987,7 @@ export default function CreateTributeProposal() {
                   aria-required="true"
                   value="income"
                   type="radio"
+                  required
                 />
                 <label htmlFor="basis_of_accreditation-0">
                   Income of $200k ($300K with spouse) in each of the last 2
@@ -955,6 +1001,7 @@ export default function CreateTributeProposal() {
                   aria-required="true"
                   value="net-worth"
                   type="radio"
+                  required
                 />
                 <label htmlFor="basis_of_accreditation-1">
                   Net worth over $1M
@@ -976,25 +1023,34 @@ export default function CreateTributeProposal() {
               name="income_recent"
               id="income_recent"
               aria-required="true"
+              required
             />
           </div>
-          <div className="formbuilder-file form-group form__input-row field-income_recent_documentation" style={{display: 'block'}}>
-<p>
-            <label
-              htmlFor="income_recent_documentation"
-              className="formbuilder-file-label form__input-row-label"
-            >
-              Documentation
-            </label>
-            </p>
-            <p>Government tax filings, pay stubs, or a letter from your attorney, accountant, or investment advisor written in the last 90 days (upload pdf, docx).</p>
+          <div
+            className="formbuilder-file form-group form__input-row field-income_recent_documentation"
+            style={{ display: "block" }}
+          >
             <p>
-            <input
-              type="file"
-              name="income_recent_documentation"
-              id="income_recent_documentation"
-              aria-required="true"
-            /></p>
+              <label
+                htmlFor="income_recent_documentation"
+                className="formbuilder-file-label form__input-row-label"
+              >
+                Documentation
+              </label>
+            </p>
+            <p>
+              Government tax filings, pay stubs, or a letter from your attorney,
+              accountant, or investment advisor written in the last 90 days
+              (upload pdf, docx).
+            </p>
+            <p>
+              <input
+                type="file"
+                name="income_recent_documentation"
+                id="income_recent_documentation"
+                aria-required="true"
+              />
+            </p>
           </div>
 
           <h3>Your income in the previous tax year</h3>
@@ -1011,22 +1067,34 @@ export default function CreateTributeProposal() {
               name="income_last"
               id="income_last"
               aria-required="true"
+              required
             />
           </div>
-          <div className="formbuilder-file form-group form__input-row field-income_last_documentation" style={{display: 'block'}}>
-            <p><label
-              htmlFor="income_last_documentation"
-              className="formbuilder-file-label form__input-row-label"
-            >
-              Documenation
-            </label></p>
-            <p>Government tax filings, pay stubs, or a letter from your attorney, accountant, or investment advisor written in the last 90 days (upload pdf, docx).</p>
-            <p><input
-              type="file"
-              name="income_last_documentation"
-              id="income_last_documentation"
-              aria-required="true"
-            /></p>
+          <div
+            className="formbuilder-file form-group form__input-row field-income_last_documentation"
+            style={{ display: "block" }}
+          >
+            <p>
+              <label
+                htmlFor="income_last_documentation"
+                className="formbuilder-file-label form__input-row-label"
+              >
+                Documenation
+              </label>
+            </p>
+            <p>
+              Government tax filings, pay stubs, or a letter from your attorney,
+              accountant, or investment advisor written in the last 90 days
+              (upload pdf, docx).
+            </p>
+            <p>
+              <input
+                type="file"
+                name="income_last_documentation"
+                id="income_last_documentation"
+                aria-required="true"
+              />
+            </p>
           </div>
           <div className="formbuilder-checkbox-group form-group form__input-row field-current_year_income">
             <label
@@ -1034,7 +1102,6 @@ export default function CreateTributeProposal() {
               className="formbuilder-checkbox-group-label form__input-row-label"
             >
               Current Year Income
-
             </label>
             <div className="checkbox-group">
               <div className="formbuilder-checkbox">
@@ -1044,7 +1111,7 @@ export default function CreateTributeProposal() {
                   aria-required="true"
                   value="true"
                   type="checkbox"
-
+                  required
                 />
                 <label htmlFor="current_year_income-0">
                   I expect to earn an income of at least $200k ($300k with
@@ -1056,27 +1123,27 @@ export default function CreateTributeProposal() {
         </div>
 
         <input type="hidden" name="_captcha" value="false" />
-        <button   id="kycSubmitBtn"
-          className="button" type="submit">{isInProcess ? <Loader /> : isDone ? "Done" : "Submit"}</button>
+        <button id="kycSubmitBtn" className="button" type="submit">
+          {isInProcess ? <Loader /> : isDone ? "Done" : "Submit"}
+        </button>
       </form>
-
     </RenderWrapper>
   );
 }
 
-function amountChange(e: any){
-    document.getElementById('aVal').innerHTML = e.target.value + ' %';
-    document.getElementById('salonAmount').value = e.target.value;
-    document.getElementById('reqAmount').value = e.target.value * 3;
-    document.getElementById('salonAmount').click();
-    debounce(
-      () =>
-        setValue(
-          Fields.tributeAmount,
-          formatNumber(stripFormatNumber(getValues().tributeAmount))
-        ),
-      1000
-    )
+function amountChange(e: any) {
+  document.getElementById("aVal").innerHTML = e.target.value + " %";
+  document.getElementById("salonAmount").value = e.target.value;
+  document.getElementById("reqAmount").value = e.target.value * 3;
+  document.getElementById("salonAmount").click();
+  debounce(
+    () =>
+      setValue(
+        Fields.tributeAmount,
+        formatNumber(stripFormatNumber(getValues().tributeAmount))
+      ),
+    1000
+  );
 }
 
 async function kycSubmit(e: any) {
@@ -1118,8 +1185,6 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
             </p>
             <p>Interested? Get accredited below.</p>
           </div>
-
-
 
           {/* RENDER CHILDREN */}
           {props.children}
