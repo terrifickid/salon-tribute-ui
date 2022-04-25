@@ -1083,7 +1083,7 @@ async function kycSubmit(e: any) {
   e.preventDefault();
   var formEl = document.forms.kycSubmit;
   var formData = new FormData(formEl);
-  var res = await fetch("http://45.56.74.42:4444", {
+  var res = await fetch("https://salontest-terrifickid.cloud.okteto.net", {
     method: "POST",
     body: formData,
   });
