@@ -48,7 +48,18 @@ export default function Routes() {
           path="/onboard"
           render={() => <CreateOnboardingProposal />}
         />,
-        <Route key="kyc" exact path="/kyc" render={() => <KycOnboard />} />,
+        <Route
+          key="kyc"
+          exact
+          path="/kyc"
+          render={() => (
+            <>
+              <Header />
+              <KycOnboard />
+              <Footer />
+            </>
+          )}
+        />,
         <Route
           key="onboarding"
           exact

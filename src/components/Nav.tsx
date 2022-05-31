@@ -1,40 +1,41 @@
-import {NavLink} from 'react-router-dom';
-import {Transition} from 'react-transition-group';
-import {useSelector} from 'react-redux';
-import {useState, useEffect, useRef} from 'react';
-import Media from 'react-media';
-import ReactModal from 'react-modal';
+import { NavLink } from "react-router-dom";
+import { Transition } from "react-transition-group";
+import { useSelector } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import Media from "react-media";
+import ReactModal from "react-modal";
 
-import {ENABLE_KYC_ONBOARDING} from '../config';
-import {ModalLogo} from './logo';
-import {normalizeString} from '../util/helpers';
-import {StoreState} from '../store/types';
-import {useWeb3Modal} from './web3/hooks';
-import DaoTokenHolder from './dao-token/DaoTokenHolder';
-import HamburgerSVG from '../assets/svg/HamburgerSVG';
-import TimesSVG from '../assets/svg/TimesSVG';
-import Web3ModalButton from './web3/Web3ModalButton';
+import { ENABLE_KYC_ONBOARDING } from "../config";
+import { ModalLogo } from "./logo";
+import { normalizeString } from "../util/helpers";
+import { StoreState } from "../store/types";
+import { useWeb3Modal } from "./web3/hooks";
+import DaoTokenHolder from "./dao-token/DaoTokenHolder";
+import HamburgerSVG from "../assets/svg/HamburgerSVG";
+import TimesSVG from "../assets/svg/TimesSVG";
+import Web3ModalButton from "./web3/Web3ModalButton";
 
 // see: http://reactcommunity.org/react-transition-group/transition
 const duration = 200;
 
 const defaultStyle = {
-  transition: '0.1s',
+  transition: "0.1s",
 };
 
 const transitionOpeningStyles: Record<string, any> = {
-  entering: {right: '-300px'},
-  entered: {right: 0},
-  exiting: {right: 0, opacity: 0},
-  exited: {right: '-300px', opacity: 0},
+  entering: { right: "-300px" },
+  entered: { right: 0 },
+  exiting: { right: 0, opacity: 0 },
+  exited: { right: "-300px", opacity: 0 },
 };
 
 const transitionClosingStyles: Record<string, any> = {
-  entering: {right: 0, opacity: 1},
-  entered: {right: '-300px', opacity: 1},
-  exiting: {right: '-300px', opacity: 1},
-  exited: {right: 0, opacity: 1},
+  entering: { right: 0, opacity: 1 },
+  entered: { right: "-300px", opacity: 1 },
+  exiting: { right: "-300px", opacity: 1 },
+  exited: { right: 0, opacity: 1 },
 };
+
 
 export function NavLinks() {
   return (
@@ -55,7 +56,13 @@ export function NavLinks() {
   );
 }
 
+
+
+
 export function NavHamburger() {
+
+
+
   /**
    * Selectors
    */
@@ -75,7 +82,7 @@ export function NavHamburger() {
    * Our hooks
    */
 
-  const {account} = useWeb3Modal();
+  const { account } = useWeb3Modal();
 
   /**
    * Refs
@@ -88,8 +95,10 @@ export function NavHamburger() {
    */
 
   useEffect(() => {
+    
     // Clean up on unmount
     return () => {
+
       closeMenuRef.current && clearTimeout(closeMenuRef.current);
     };
   }, []);
@@ -130,6 +139,8 @@ export function NavHamburger() {
     }
   }
 
+
+
   /**
    * Render
    */
@@ -144,7 +155,8 @@ export function NavHamburger() {
           onClick={(event) => {
             event.preventDefault();
             handleMenuModalClose(true);
-          }}>
+          }}
+        >
           <HamburgerSVG />
         </div>
       </div>
@@ -159,7 +171,8 @@ export function NavHamburger() {
         }}
         overlayClassName="nav-modal-overlay"
         role="dialog"
-        style={{overlay: {zIndex: '99'}} as any}>
+        style={{ overlay: { zIndex: "99" } } as any}
+      >
         <Transition appear in={shouldShowMenuModal} timeout={duration}>
           {(transition) => (
             <nav role="navigation" id="navigation">
@@ -168,13 +181,15 @@ export function NavHamburger() {
                   ...defaultStyle,
                   ...transitionStyles[transition],
                 }}
-                className="nav-modal">
+                className="nav-modal"
+              >
                 <button
                   className="modal__close-button modal__close-button--icon"
                   onClick={(event) => {
                     event.preventDefault();
                     handleMenuModalClose(false);
-                  }}>
+                  }}
+                >
                   <TimesSVG />
                 </button>
 
@@ -184,29 +199,34 @@ export function NavHamburger() {
                   <Web3ModalButton />
                 </div>
                 <ul className="nav__list">
-                  {!isCurrentMemberOrDelegateConnected && (
-                    <li
-                      onClick={() => {
-                        handleMenuModalClose(false);
-                      }}>
-                      <NavLink to="/tribute">
-                        <span>Join</span>
-                      </NavLink>
-                    </li>
-                  )}
-                  <li
-                    onClick={() => {
-                      handleMenuModalClose(false);
-                    }}>
-                    <NavLink to="/tributes">
-                      <span>Applications</span>
-                    </NavLink>
-                  </li>
                   {isCurrentMemberOrDelegateConnected && (
                     <li
                       onClick={() => {
                         handleMenuModalClose(false);
-                      }}>
+                      }}
+                    >
+                      <NavLink to="/tributes">
+                        <span>Onboarding</span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {!isCurrentMemberOrDelegateConnected && (
+                    <li
+                      onClick={() => {
+                        handleMenuModalClose(false);
+                      }}
+                    >
+                      <NavLink to="/kyc">
+                        <span>Onboarding</span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {isCurrentMemberOrDelegateConnected && (
+                    <li
+                      onClick={() => {
+                        handleMenuModalClose(false);
+                      }}
+                    >
                       <NavLink to="/transfers">
                         <span>Transfer</span>
                       </NavLink>
@@ -216,9 +236,10 @@ export function NavHamburger() {
                     <li
                       onClick={() => {
                         handleMenuModalClose(false);
-                      }}>
+                      }}
+                    >
                       <NavLink to="/governance">
-                        <span>Governance</span>
+                        <span>Proposals</span>
                       </NavLink>
                     </li>
                   )}
@@ -226,7 +247,8 @@ export function NavHamburger() {
                     <li
                       onClick={() => {
                         handleMenuModalClose(false);
-                      }}>
+                      }}
+                    >
                       <NavLink to="/members">
                         <span>Members</span>
                       </NavLink>
@@ -237,9 +259,11 @@ export function NavHamburger() {
                     <li
                       onClick={() => {
                         handleMenuModalClose(false);
-                      }}>
+                      }}
+                    >
                       <NavLink
-                        to={`/members/${connectedMember?.memberAddress}`}>
+                        to={`/members/${connectedMember?.memberAddress}`}
+                      >
                         <span>Profile</span>
                       </NavLink>
                     </li>
