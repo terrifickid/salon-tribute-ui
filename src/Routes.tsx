@@ -1,30 +1,32 @@
-import {Route, Switch, HashRouter} from 'react-router-dom';
+import { Route, Switch, HashRouter } from "react-router-dom";
 
-import {ENABLE_KYC_ONBOARDING} from './config';
+import { ENABLE_KYC_ONBOARDING } from "./config";
 // import AdapterOrExtensionManager from './components/adapters-extensions/AdapterOrExtensionManager';
-import CreateGovernanceProposal from './pages/governance/CreateGovernanceProposal';
-import CreateOnboardingProposal from './pages/onboarding/CreateOnboardingProposal';
-import CreateTransferProposal from './pages/transfers/CreateTransferProposal';
-import CreateTributeProposal from './pages/tributes/CreateTributeProposal';
-import GetStarted from './pages/start/GetStarted';
-import GovernanceProposalDetails from './pages/governance/GovernanceProposalDetails';
-import GovernanceProposals from './pages/governance/GovernanceProposals';
-import KycOnboardingForm from './pages/kyc-onboarding/KycOnboardingForm';
-import MemberProfile from './pages/members/MemberProfile';
-import Members from './pages/members/Members';
-import Onboarding from './pages/onboarding/Onboarding';
-import OnboardingDetails from './pages/onboarding/OnboardingDetails';
-import NotFound from './pages/subpages/NotFound';
-import Redeem from './pages/redeem/Redeem';
-import TransferDetails from './pages/transfers/TransferDetails';
-import Transfers from './pages/transfers/Transfers';
-import TributeDetails from './pages/tributes/TributeDetails';
-import Tributes from './pages/tributes/Tributes';
+import CreateGovernanceProposal from "./pages/governance/CreateGovernanceProposal";
+import CreateOnboardingProposal from "./pages/onboarding/CreateOnboardingProposal";
+import CreateTransferProposal from "./pages/transfers/CreateTransferProposal";
+import CreateTributeProposal from "./pages/tributes/CreateTributeProposal";
+import GetStarted from "./pages/start/GetStarted";
+import GovernanceProposalDetails from "./pages/governance/GovernanceProposalDetails";
+import GovernanceProposals from "./pages/governance/GovernanceProposals";
+import KycOnboardingForm from "./pages/kyc-onboarding/KycOnboardingForm";
+import MemberProfile from "./pages/members/MemberProfile";
+import Members from "./pages/members/Members";
+import Onboarding from "./pages/onboarding/Onboarding";
+import OnboardingDetails from "./pages/onboarding/OnboardingDetails";
+import NotFound from "./pages/subpages/NotFound";
+import Redeem from "./pages/redeem/Redeem";
+import TransferDetails from "./pages/transfers/TransferDetails";
+import Transfers from "./pages/transfers/Transfers";
+import TributeDetails from "./pages/tributes/TributeDetails";
+import Tributes from "./pages/tributes/Tributes";
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+import KycOnboard from "./pages/custom/KycOnboard";
 
-const proposalIdParameter: string = ':proposalId';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+const proposalIdParameter: string = ":proposalId";
 
 export default function Routes() {
   return (
@@ -46,7 +48,7 @@ export default function Routes() {
           path="/onboard"
           render={() => <CreateOnboardingProposal />}
         />,
-
+        <Route key="kyc" exact path="/kyc" render={() => <KycOnboard />} />,
         <Route
           key="onboarding"
           exact
@@ -63,67 +65,133 @@ export default function Routes() {
           key="transfer"
           exact
           path="/transfer"
-          render={() => <><Header /><CreateTransferProposal /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <CreateTransferProposal />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="transfers"
           exact
           path="/transfers"
-          render={() => <><Header /><Transfers /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <Transfers />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="transfer-details"
           exact
           path={`/transfers/${proposalIdParameter}`}
-          render={() => <><Header /><TransferDetails /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <TransferDetails />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="tribute"
           exact
           path="/tribute"
-          render={() => <><Header /><CreateTributeProposal /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <CreateTributeProposal />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="tributes"
           exact
           path="/tributes"
-          render={() => <><Header /><Tributes /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <Tributes />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="tribute-details"
           exact
           path={`/tributes/${proposalIdParameter}`}
-          render={() => <><Header /><TributeDetails /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <TributeDetails />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="governance-proposal"
           exact
           path="/governance-proposal"
-          render={() => <><Header /><CreateGovernanceProposal /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <CreateGovernanceProposal />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="governance-proposals"
           exact
           path="/governance"
-          render={() => <><Header /><GovernanceProposals /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <GovernanceProposals />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="governance-proposal-details"
           exact
           path={`/governance/${proposalIdParameter}`}
-          render={() => <><Header /><GovernanceProposalDetails /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <GovernanceProposalDetails />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="members"
           exact
           path="/members"
-          render={() => <><Header /><Members /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <Members />
+              <Footer />
+            </>
+          )}
         />,
         <Route
           key="member-profile"
           exact
           path="/members/:ethereumAddress"
-          render={() => <><Header /><MemberProfile /><Footer /></>}
+          render={() => (
+            <>
+              <Header />
+              <MemberProfile />
+              <Footer />
+            </>
+          )}
         />,
         // @note Disabling DAO Manager for now because we paused on maintaining
         // it.
@@ -135,7 +203,6 @@ export default function Routes() {
         // />,
         <Route key="redeem" exact path="/redeem" render={() => <Redeem />} />,
         // 404 component (note: does not redirect to a route to maintain original path)
-
       ]}
     </HashRouter>
   );
