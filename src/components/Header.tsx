@@ -1,7 +1,7 @@
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import {LeftLogo} from './logo';
-import Nav from './Nav';
+import { LeftLogo } from "./logo";
+import Nav from "./Nav";
 
 export default function Header() {
   /**
@@ -19,9 +19,7 @@ export default function Header() {
 
   return (
     <header className="header">
-      <RenderLogo>
-        <LeftLogo />
-      </RenderLogo>
+      <LeftLogo />
 
       <div className="header__nav-container">
         <Nav />

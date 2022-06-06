@@ -1,7 +1,10 @@
 interface LogoProps {
   size?: "small" | "medium" | "large" | "";
 }
-
+function link() {
+  console.log("link!");
+  window.location.href = "https://salondao.xyz";
+}
 export default function Logo(props: LogoProps) {
   return (
     <div style={{ fontSize: "1.5rem" }}>
