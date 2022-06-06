@@ -199,7 +199,7 @@ export function NavHamburger() {
                   <Web3ModalButton />
                 </div>
                 <ul className="nav__list">
-                  
+
                   {!isCurrentMemberOrDelegateConnected && (
                     <li
                       onClick={() => {
@@ -218,7 +218,7 @@ export function NavHamburger() {
                       }}
                     >
                       <NavLink to="/transfers">
-                        <span>Transfer</span>
+                        <span>Offboarding</span>
                       </NavLink>
                     </li>
                   )}
