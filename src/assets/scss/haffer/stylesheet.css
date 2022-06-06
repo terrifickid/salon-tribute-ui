@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Haffer XH';
+    src: url('HafferXH-BoldItalic.woff2') format('woff2'),
+        url('HafferXH-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH';
+    src: url('HafferXH-Regular.woff2') format('woff2'),
+        url('HafferXH-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH XH';
+    src: url('HafferXH-RegularItalic.woff2') format('woff2'),
+        url('HafferXH-RegularItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH';
+    src: url('HafferXH-Regular.woff2') format('woff2'),
+        url('HafferXH-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH';
+    src: url('HafferXH-BoldItalic.woff2') format('woff2'),
+        url('HafferXH-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH';
+    src: url('HafferXH-Bold.woff2') format('woff2'),
+        url('HafferXH-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH XH';
+    src: url('HafferXH-RegularItalic.woff2') format('woff2'),
+        url('HafferXH-RegularItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Haffer XH';
+    src: url('HafferXH-Bold.woff2') format('woff2'),
+        url('HafferXH-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -73,9 +73,7 @@ export default function GetStarted() {
               Collecting contemporary art together.
             </div>
 
-            <div className="landing__img">
-              <TributeCube />
-            </div>
+
 
             <div className="landing__button">
               <button

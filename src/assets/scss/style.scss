@@ -31,9 +31,12 @@
 @use "./daotokenholder"; /* DAO token holder widget styles */
 @use "./delegation"; /* delegation styles */
 
+#tk_approved, #tk_denied{display:none; }
+#tk_approved.active, #tk_denied.active{display: block; }
+
 html {
   height: 100%;
-  font-size: 100%; /* 16px by default; px value overrides user's browser settings */
+  font-size: 100%;  /* 16px by default; px value overrides user's browser settings */
 }
 
 html,

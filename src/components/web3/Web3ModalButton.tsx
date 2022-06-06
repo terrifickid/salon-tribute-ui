@@ -47,6 +47,10 @@ export default function ConnectWalletButton({
    * Functions
    */
 
+   function mookie(e: any){
+
+   }
+
   function getWalletText(): string {
     if (customWalletText) {
       return typeof customWalletText === 'function'
@@ -55,6 +59,10 @@ export default function ConnectWalletButton({
     }
 
     if (account) {
+  
+      Object.defineProperty(window, 'tk_wallet_address', {
+        value: account
+      })
       return accountENS || truncateEthAddress(toChecksumAddress(account));
     }
 
@@ -67,7 +75,7 @@ export default function ConnectWalletButton({
 
   return (
     <button
-      className={`walletconnect__connect-button 
+      className={`walletconnect__connect-button
         ${
           isWrongNetwork && connected
             ? 'walletconnect__connect-button--error'
