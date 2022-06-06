@@ -1,11 +1,11 @@
-import {useState, useCallback, useEffect} from 'react';
-import {useSelector} from 'react-redux';
-import {SnapshotType} from '@openlaw/snapshot-js-erc712';
-import {useForm} from 'react-hook-form';
-import {useHistory} from 'react-router-dom';
-import {Contract as Web3Contract} from 'web3-eth-contract/types';
-import {toBN, AbiItem, toChecksumAddress} from 'web3-utils';
-import {debounce} from 'debounce';
+import { useState, useCallback, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { SnapshotType } from "@openlaw/snapshot-js-erc712";
+import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { Contract as Web3Contract } from "web3-eth-contract/types";
+import { toBN, AbiItem, toChecksumAddress } from "web3-utils";
+import { debounce } from "debounce";
 
 import {
   formatNumber,
@@ -13,31 +13,34 @@ import {
   normalizeString,
   stripFormatNumber,
   truncateEthAddress,
-} from '../../util/helpers';
-import {useIsDefaultChain, useWeb3Modal} from '../../components/web3/hooks';
-import {ContractAdapterNames, Web3TxStatus} from '../../components/web3/types';
-import {FormFieldErrors} from '../../util/enums';
-import {isEthAddressValid} from '../../util/validation';
-import {AsyncStatus} from '../../util/types';
-import {UNITS_ADDRESS} from '../../config';
-import {StoreState} from '../../store/types';
+} from "../../util/helpers";
+import { useIsDefaultChain, useWeb3Modal } from "../../components/web3/hooks";
+import {
+  ContractAdapterNames,
+  Web3TxStatus,
+} from "../../components/web3/types";
+import { FormFieldErrors } from "../../util/enums";
+import { isEthAddressValid } from "../../util/validation";
+import { AsyncStatus } from "../../util/types";
+import { UNITS_ADDRESS } from "../../config";
+import { StoreState } from "../../store/types";
 import {
   useCheckApplicant,
   useSignAndSubmitProposal,
-} from '../../components/proposals/hooks';
-import {CycleEllipsis} from '../../components/feedback';
-import ErrorMessageWithDetails from '../../components/common/ErrorMessageWithDetails';
-import FadeIn from '../../components/common/FadeIn';
-import InputError from '../../components/common/InputError';
-import Loader from '../../components/feedback/Loader';
-import Wrap from '../../components/common/Wrap';
+} from "../../components/proposals/hooks";
+import { CycleEllipsis } from "../../components/feedback";
+import ErrorMessageWithDetails from "../../components/common/ErrorMessageWithDetails";
+import FadeIn from "../../components/common/FadeIn";
+import InputError from "../../components/common/InputError";
+import Loader from "../../components/feedback/Loader";
+import Wrap from "../../components/common/Wrap";
 
 enum Fields {
-  applicantAddress = 'applicantAddress',
-  erc20Address = 'erc20Address',
-  tributeAmount = 'tributeAmount',
-  requestAmount = 'requestAmount',
-  description = 'description',
+  applicantAddress = "applicantAddress",
+  erc20Address = "erc20Address",
+  tributeAmount = "tributeAmount",
+  requestAmount = "requestAmount",
+  description = "description",
 }
 
 type FormInputs = {
@@ -75,8 +78,8 @@ export default function CreateTributeProposal() {
    * Our hooks
    */
 
-  const {defaultChainError} = useIsDefaultChain();
-  const {connected, account, web3Instance} = useWeb3Modal();
+  const { defaultChainError } = useIsDefaultChain();
+  const { connected, account, web3Instance } = useWeb3Modal();
   const {
     proposalData,
     proposalSignAndSendError,
@@ -89,8 +92,8 @@ export default function CreateTributeProposal() {
    */
 
   const form = useForm<FormInputs>({
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
+    mode: "onBlur",
+    reValidateMode: "onChange",
   });
   const history = useHistory();
 
@@ -107,7 +110,7 @@ export default function CreateTributeProposal() {
    * Variables
    */
 
-  const {errors, getValues, setValue, register, trigger, watch} = form;
+  const { errors, getValues, setValue, register, trigger, watch } = form;
 
   const erc20AddressValue = watch(Fields.erc20Address);
 
@@ -183,8 +186,8 @@ export default function CreateTributeProposal() {
     }
 
     try {
-      const {default: lazyERC20ABI} = await import(
-        '../../abis/external/ERC20.json'
+      const { default: lazyERC20ABI } = await import(
+        "../../abis/external/ERC20.json"
       );
       const erc20Contract: AbiItem[] = lazyERC20ABI as any;
       const instance = new web3Instance.eth.Contract(
@@ -207,7 +210,7 @@ export default function CreateTributeProposal() {
     try {
       const symbol = await erc20Contract.methods.symbol().call();
       const decimals = await erc20Contract.methods.decimals().call();
-      setERC20Details({symbol, decimals: Number(decimals)});
+      setERC20Details({ symbol, decimals: Number(decimals) });
     } catch (error) {
       console.error(error);
       setERC20Details(undefined);
@@ -240,13 +243,13 @@ export default function CreateTributeProposal() {
 
   async function getRequestAmountUnit() {
     if (!ERC20ExtensionContract) {
-      return 'UNITS';
+      return "UNITS";
     } else {
       try {
         return await ERC20ExtensionContract.instance.methods.symbol().call();
       } catch (error) {
         console.log(error);
-        return 'UNITS';
+        return "UNITS";
       }
     }
   }
@@ -255,20 +258,20 @@ export default function CreateTributeProposal() {
     try {
       if (!isConnected) {
         throw new Error(
-          'No user account was found. Please make sure your wallet is connected.'
+          "No user account was found. Please make sure your wallet is connected."
         );
       }
 
       if (!account) {
-        throw new Error('No account found.');
+        throw new Error("No account found.");
       }
 
       if (!erc20Contract) {
-        throw new Error('No ERC20Contract found.');
+        throw new Error("No ERC20Contract found.");
       }
 
       if (!erc20Details) {
-        throw new Error('No ERC20 details found.');
+        throw new Error("No ERC20 details found.");
       }
 
       if (checkApplicantError) {
@@ -304,7 +307,7 @@ export default function CreateTributeProposal() {
       const proposerAddressToChecksum = toChecksumAddress(account);
 
       // Maybe set proposal ID from previous attempt
-      let proposalId: string = proposalData?.uniqueId || '';
+      let proposalId: string = proposalData?.uniqueId || "";
 
       // Only submit to snapshot if there is not already a proposal ID returned from a previous attempt.
       if (!proposalId) {
@@ -346,15 +349,14 @@ export default function CreateTributeProposal() {
         ];
 
         // Sign and submit draft for snapshot-hub
-        const {uniqueId} = await signAndSendProposal({
+        const { uniqueId } = await signAndSendProposal({
           partialProposalData: {
             name: applicantAddressToChecksum,
             body,
             metadata: {
               proposalAmountValues,
               submitActionArgs,
-              accountAuthorizedToProcessPassedProposal:
-                proposerAddressToChecksum,
+              accountAuthorizedToProcessPassedProposal: proposerAddressToChecksum,
             },
           },
           adapterName: ContractAdapterNames.tribute,
@@ -391,15 +393,15 @@ export default function CreateTributeProposal() {
           </>
         );
       case Web3TxStatus.FULFILLED:
-        return 'Done!';
+        return "Done!";
       default:
-        return '';
+        return "";
     }
   }
 
   function renderUserERC20Balance() {
     if (!userERC20Balance) {
-      return '---';
+      return "---";
     }
 
     return formatNumber(userERC20Balance);
@@ -408,7 +410,7 @@ export default function CreateTributeProposal() {
   function getUnauthorizedMessage() {
     // user is not connected
     if (!isConnected) {
-      return 'Connect your wallet to submit a tribute proposal.';
+      return "Connect your wallet to submit a tribute proposal.";
     }
 
     // user is on wrong network
@@ -417,47 +419,47 @@ export default function CreateTributeProposal() {
     }
   }
 
-async function kycSubmit(e: any) {
+  async function kycSubmit(e: any) {
     e.preventDefault();
 
-    var btn = document.getElementById('kycSubmitBtn');
-    btn!.innerHTML = 'Processing...';
+    var btn = document.getElementById("kycSubmitBtn");
+    btn!.innerHTML = "Processing...";
     var formEl = document.forms[0];
     var formData = new FormData(formEl);
     var res = await fetch("https://salontest-terrifickid.cloud.okteto.net", {
       method: "POST",
       body: formData,
     });
-    btn!.innerHTML = 'Application sent!';
+    btn!.innerHTML = "Application sent!";
     console.log(res);
   }
 
-async function snicker(){
-  console.log('snicker!');
-  var res = await fetch("https://salontest-terrifickid.cloud.okteto.net");
-  var data = await res.json();
-  var approvedWallets = data.map(function(item: any){ if(item.approved) return item.wallet });
-  var runner = setInterval(() => {
-    if(window.hasOwnProperty('tk_wallet_address')){
-      const approved = document.getElementById("tk_approved");
-      const denied = document.getElementById("tk_denied");
-      if(approvedWallets.includes((window as any).tk_wallet_address)){
-        //Wallet is approved
-        approved!.classList.add("active");
-        clearInterval(runner);
-      }else{
-        //Wallet is NOT
-        denied!.classList.add("active");
-        clearInterval(runner);
+  async function snicker() {
+    console.log("snicker!");
+    var res = await fetch("https://salontest-terrifickid.cloud.okteto.net");
+    var data = await res.json();
+    var approvedWallets = data.map(function (item: any) {
+      if (item.approved) return item.wallet;
+    });
+    var runner = setInterval(() => {
+      if (window.hasOwnProperty("tk_wallet_address")) {
+        const approved = document.getElementById("tk_approved");
+        const denied = document.getElementById("tk_denied");
+        if (approvedWallets.includes((window as any).tk_wallet_address)) {
+          //Wallet is approved
+          approved!.classList.add("active");
+          clearInterval(runner);
+        } else {
+          //Wallet is NOT
+          denied!.classList.add("active");
+          clearInterval(runner);
+        }
       }
-    }
+    }, 100);
+  }
 
-  }, 100);
-
-}
-
-  useEffect(()=>{
-    console.log('useEffect ran!');
+  useEffect(() => {
+    console.log("useEffect ran!");
     snicker();
   }, []);
 
@@ -469,457 +471,473 @@ async function snicker(){
   if (!isConnected || defaultChainError) {
     return (
       <RenderWrapper>
-
-          <h1>Connect your wallet to continue</h1>
-
+        <h1>Connect your wallet to continue</h1>
       </RenderWrapper>
     );
   }
 
   return (
     <RenderWrapper>
-    <div id="tk_denied">
-    <form
-      id="kycSubmitForm"
-      style={{ width: "100%", margin: "0" }}
+      <div id="tk_denied">
+        <p>For U.S. accredited investors</p>
+        <p>
+          Salon is a for-profit member-managed limited liability company
+          organized in Delaware.{" "}
+        </p>
+        <p>
+          Salon will have up to 100 initial members who will pool their capital
+          to build a world class collection of contemporary art. Each member can
+          purchase 1% blocks of Salon units for $30,000 (up to 10% for
+          $300,000).
+        </p>
+        <p>Interested? Get accredited below.</p>
 
-      method="POST"
-      className="form"
-      onSubmit={kycSubmit}
-    >
-      <div className="rendered-form">
-        <div
-          style={{ marginTop: "1rem" }}
-          className="form__input-row formbuilder-radio-group form-group form__input-row field-type_of_entity"
+        <form
+          id="kycSubmitForm"
+          style={{ width: "100%", margin: "0" }}
+          method="POST"
+          className="form"
+          onSubmit={kycSubmit}
         >
-          <label
-            htmlFor="type_of_entity"
-            className="formbuilder-radio-group-label form__input-row-label"
-          >
-            Type of Entity
-          </label>
-          <div className="radio-group">
-            <div className="formbuilder-radio">
-              <input
-                name="type_of_entity"
-                id="type_of_entity-0"
-                aria-required="true"
-                value="person"
-                type="radio"
-                required
-              />
-              <label htmlFor="type_of_entity-0">Person</label>
-            </div>
-            <div className="formbuilder-radio">
-              <input
-                name="type_of_entity"
-                id="type_of_entity-1"
-                aria-required="true"
-                value="company"
-                type="radio"
-                required
-              />
-              <label htmlFor="type_of_entity-1">Company</label>
-            </div>
-            <div className="formbuilder-radio">
-              <input
-                name="type_of_entity"
-                id="type_of_entity-2"
-                aria-required="true"
-                value="trust"
-                type="radio"
-                required
-              />
-              <label htmlFor="type_of_entity-2">Trust</label>
-            </div>
-          </div>
-        </div>
-        <div className="form__input-row formbuilder-text form-group form__input-row field-walletAddress">
-          <label
-            htmlFor="walletAddress"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Wallet Address
-
-          </label>
-          <input
-            type="text"
-            name="walletAddress"
-            id="walletAddress"
-            aria-required="true"
-            required
-            value={(window as any).tk_wallet_address}
-          />
-        </div>
-        <div className="form__input-row formbuilder-text form-group form__input-row field-legal_name_of_person">
-          <label
-            htmlFor="legal_name_of_person"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Legal Name of Person
-          </label>
-          <input
-            type="text"
-            name="legalNameOfPerson"
-            id="legalNameOfPerson"
-            aria-required="true"
-            required
-          />
-        </div>
-        <div className="formbuilder-text form-group form__input-row field-email_address">
-          <label
-            htmlFor="email_address"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Email Address
-          </label>
-          <input
-            type="text"
-            name="email_address"
-            id="email_address"
-            aria-required="true"
-            required
-          />
-        </div>
-        <div className="formbuilder-text form-group form__input-row field-text-1650421756581">
-          <label
-            htmlFor="text-1650421756581"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Home Address
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="text-1650421756581"
-            id="text-1650421756581"
-            aria-required="true"
-            required
-          />
-        </div>
-
-        <div className="formbuilder-select form-group form__input-row field-select-1650421785515">
-          <label
-            htmlFor="text-1650421756581"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Date of Birth
-          </label>
-
-          <div style={{ width: "100%" }} className="bootstrap-wrapper">
-            <div className="row">
-              <div className="col-md-4">
-                <select
-                  className="form-control"
-                  name="DOB_month"
-                  id="select-1650421785515"
-                  aria-required="true"
-                  required
-                >
-                  <option value="01" id="select-1650421785515-0">
-                    01
-                  </option>
-                  <option value="02" id="select-1650421785515-1">
-                    02
-                  </option>
-                  <option value="03" id="select-1650421785515-2">
-                    03
-                  </option>
-                </select>
-              </div>
-              <div
-                className="hidden-md-up col-12"
-                style={{ height: "1rem" }}
-              ></div>
-              <div className="col-md-4">
-                <select
-                  name="DOB_day"
-                  id="day"
-
-                  aria-required="true"
-                  required
-                >
-                  <option value="01" id="day-0">
-                    01
-                  </option>
-                  <option value="02" id="day-1">
-                    02
-                  </option>
-                  <option value="03" id="day-2">
-                    03
-                  </option>
-                </select>
-              </div>
-              <div
-                className="hidden-md-up col-12"
-                style={{ height: "1rem" }}
-              ></div>
-              <div className="col-md-4">
-                <select
-                  name="DOB_year"
-                  id="year"
-                  aria-required="true"
-                  required
-                >
-                  <option value="2000" id="year-0">
-                    2000
-                  </option>
-                  <option value="2001" id="year-1">
-                    2001
-                  </option>
-                  <option value="2003" id="year-2">
-                    2003
-                  </option>
-                </select>
+          <div className="rendered-form">
+            <div
+              style={{ marginTop: "1rem" }}
+              className="form__input-row formbuilder-radio-group form-group form__input-row field-type_of_entity"
+            >
+              <label
+                htmlFor="type_of_entity"
+                className="formbuilder-radio-group-label form__input-row-label"
+              >
+                Type of Entity
+              </label>
+              <div className="radio-group">
+                <div className="formbuilder-radio">
+                  <input
+                    name="type_of_entity"
+                    id="type_of_entity-0"
+                    aria-required="true"
+                    value="person"
+                    type="radio"
+                    required
+                  />
+                  <label htmlFor="type_of_entity-0">Person</label>
+                </div>
+                <div className="formbuilder-radio">
+                  <input
+                    name="type_of_entity"
+                    id="type_of_entity-1"
+                    aria-required="true"
+                    value="company"
+                    type="radio"
+                    required
+                  />
+                  <label htmlFor="type_of_entity-1">Company</label>
+                </div>
+                <div className="formbuilder-radio">
+                  <input
+                    name="type_of_entity"
+                    id="type_of_entity-2"
+                    aria-required="true"
+                    value="trust"
+                    type="radio"
+                    required
+                  />
+                  <label htmlFor="type_of_entity-2">Trust</label>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="formbuilder-file form-group form__input-row field-id_scan"
-          style={{ display: "block" }}
-        >
-          <p>
-            <label htmlFor="id_scan" className="formbuilder-file-label">
-              ID Scan
-            </label>
-          </p>
-          <p>
-            A passport is highly recommended but other forms of
-            government–issued color photo ID (such as a national identity card
-            or driver’s license) are also acceptable.
-          </p>
-          <p>
-            <input
-              type="file"
-              name="id_scan"
-              id="id_scan"
-              aria-required="true"
-            />
-          </p>
-        </div>
-        <div
-          className="formbuilder-file form-group form__input-row field-back_of_id_scan"
-          style={{ display: "block" }}
-        >
-          <p>
-            <label
-              htmlFor="back_of_id_scan"
-              className="formbuilder-file-label form__input-row-label"
-            >
-              Back of ID Scan (Optional)
-            </label>
-          </p>
-          <p>Not required if you uploaded a passport above.</p>
-          <p>
-            <input type="file" name="back_of_id_scan" id="back_of_id_scan" />
-          </p>
-        </div>
-        <div className="formbuilder-text form-group form__input-row field-passport_or_id_number">
-          <label
-            htmlFor="passport_or_id_number"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Passport or ID Number
-          </label>
-          <input
-            type="text"
-            name="passport_or_id_number"
-            id="passport_or_id_number"
-            aria-required="true"
-            required
-          />
-        </div>
-        <div className="formbuilder-text form-group form__input-row field-Phone-Number">
-          <label
-            htmlFor="Phone-Number"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Phone Number
-          </label>
-          <input
-            type="text"
-            name="Phone-Number"
-            id="Phone-Number"
-            aria-required="true"
-            required
-          />
-        </div>
-        <div className="formbuilder-text form-group form__input-row field-occupation">
-          <label
-            htmlFor="occupation"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Occupation
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="occupation"
-            id="occupation"
-            aria-required="true"
-            required
-          />
-        </div>
-        <h3>How are you accredited?</h3>
-
-        <div className="formbuilder-radio-group form-group form__input-row field-basis_of_accreditation">
-          <label
-            htmlFor="basis_of_accreditation"
-            className="formbuilder-radio-group-label form__input-row-label"
-          >
-            Basis of Accreditation
-          </label>
-          <div className="radio-group">
-            <div className="formbuilder-radio">
+            <div className="form__input-row formbuilder-text form-group form__input-row field-walletAddress">
+              <label
+                htmlFor="walletAddress"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Wallet Address
+              </label>
               <input
-                name="basis_of_accreditation"
-                id="basis_of_accreditation-0"
+                type="text"
+                name="walletAddress"
+                id="walletAddress"
                 aria-required="true"
-                value="income"
-                type="radio"
+                required
+                value={(window as any).tk_wallet_address}
+              />
+            </div>
+            <div className="form__input-row formbuilder-text form-group form__input-row field-legal_name_of_person">
+              <label
+                htmlFor="legal_name_of_person"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Legal Name of Person
+              </label>
+              <input
+                type="text"
+                name="legalNameOfPerson"
+                id="legalNameOfPerson"
+                aria-required="true"
                 required
               />
-              <label htmlFor="basis_of_accreditation-0">
-                Income of $200k ($300K with spouse) in each of the last 2
-                years
-              </label>
             </div>
-            <div className="formbuilder-radio">
+            <div className="formbuilder-text form-group form__input-row field-email_address">
+              <label
+                htmlFor="email_address"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Email Address
+              </label>
               <input
-                name="basis_of_accreditation"
-                id="basis_of_accreditation-1"
+                type="text"
+                name="email_address"
+                id="email_address"
                 aria-required="true"
-                value="net-worth"
-                type="radio"
                 required
               />
-              <label htmlFor="basis_of_accreditation-1">
-                Net worth over $1M
-              </label>
             </div>
-          </div>
-        </div>
-
-        <h3>Your income in the most recent tax year</h3>
-        <div className="formbuilder-text form-group form__input-row field-income_recent">
-          <label
-            htmlFor="income_recent"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Income
-          </label>
-          <input
-            type="text"
-            name="income_recent"
-            id="income_recent"
-            aria-required="true"
-            required
-          />
-        </div>
-        <div
-          className="formbuilder-file form-group form__input-row field-income_recent_documentation"
-          style={{ display: "block" }}
-        >
-          <p>
-            <label
-              htmlFor="income_recent_documentation"
-              className="formbuilder-file-label form__input-row-label"
-            >
-              Documentation
-            </label>
-          </p>
-          <p>
-            Government tax filings, pay stubs, or a letter from your attorney,
-            accountant, or investment advisor written in the last 90 days
-            (upload pdf, docx).
-          </p>
-          <p>
-            <input
-              type="file"
-              name="income_recent_documentation"
-              id="income_recent_documentation"
-              aria-required="true"
-            />
-          </p>
-        </div>
-
-        <h3>Your income in the previous tax year</h3>
-
-        <div className="formbuilder-text form-group form__input-row field-income_last">
-          <label
-            htmlFor="income_last"
-            className="formbuilder-text-label form__input-row-label"
-          >
-            Income
-          </label>
-          <input
-            type="text"
-            name="income_last"
-            id="income_last"
-            aria-required="true"
-            required
-          />
-        </div>
-        <div
-          className="formbuilder-file form-group form__input-row field-income_last_documentation"
-          style={{ display: "block" }}
-        >
-          <p>
-            <label
-              htmlFor="income_last_documentation"
-              className="formbuilder-file-label form__input-row-label"
-            >
-              Documenation
-            </label>
-          </p>
-          <p>
-            Government tax filings, pay stubs, or a letter from your attorney,
-            accountant, or investment advisor written in the last 90 days
-            (upload pdf, docx).
-          </p>
-          <p>
-            <input
-              type="file"
-              name="income_last_documentation"
-              id="income_last_documentation"
-              aria-required="true"
-            />
-          </p>
-        </div>
-        <div className="formbuilder-checkbox-group form-group form__input-row field-current_year_income">
-          <label
-            htmlFor="current_year_income"
-            className="formbuilder-checkbox-group-label form__input-row-label"
-          >
-            Current Year Income
-          </label>
-          <div className="checkbox-group">
-            <div className="formbuilder-checkbox">
+            <div className="formbuilder-text form-group form__input-row field-text-1650421756581">
+              <label
+                htmlFor="text-1650421756581"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Home Address
+              </label>
               <input
-                name="current_year_income[]"
-                id="current_year_income-0"
+                type="text"
+                className="form-control"
+                name="text-1650421756581"
+                id="text-1650421756581"
                 aria-required="true"
-                value="true"
-                type="checkbox"
                 required
               />
-              <label htmlFor="current_year_income-0">
-                I expect to earn an income of at least $200k ($300k with
-                spouse) again this year.{" "}
+            </div>
+
+            <div className="formbuilder-select form-group form__input-row field-select-1650421785515">
+              <label
+                htmlFor="text-1650421756581"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Date of Birth
               </label>
+
+              <div style={{ width: "100%" }} className="bootstrap-wrapper">
+                <div className="row">
+                  <div className="col-md-4">
+                    <select
+                      className="form-control"
+                      name="DOB_month"
+                      id="select-1650421785515"
+                      aria-required="true"
+                      required
+                    >
+                      <option value="01" id="select-1650421785515-0">
+                        01
+                      </option>
+                      <option value="02" id="select-1650421785515-1">
+                        02
+                      </option>
+                      <option value="03" id="select-1650421785515-2">
+                        03
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    className="hidden-md-up col-12"
+                    style={{ height: "1rem" }}
+                  ></div>
+                  <div className="col-md-4">
+                    <select
+                      name="DOB_day"
+                      id="day"
+                      aria-required="true"
+                      required
+                    >
+                      <option value="01" id="day-0">
+                        01
+                      </option>
+                      <option value="02" id="day-1">
+                        02
+                      </option>
+                      <option value="03" id="day-2">
+                        03
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    className="hidden-md-up col-12"
+                    style={{ height: "1rem" }}
+                  ></div>
+                  <div className="col-md-4">
+                    <select
+                      name="DOB_year"
+                      id="year"
+                      aria-required="true"
+                      required
+                    >
+                      <option value="2000" id="year-0">
+                        2000
+                      </option>
+                      <option value="2001" id="year-1">
+                        2001
+                      </option>
+                      <option value="2003" id="year-2">
+                        2003
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="formbuilder-file form-group form__input-row field-id_scan"
+              style={{ display: "block" }}
+            >
+              <p>
+                <label htmlFor="id_scan" className="formbuilder-file-label">
+                  ID Scan
+                </label>
+              </p>
+              <p>
+                A passport is highly recommended but other forms of
+                government–issued color photo ID (such as a national identity
+                card or driver’s license) are also acceptable.
+              </p>
+              <p>
+                <input
+                  type="file"
+                  name="id_scan"
+                  id="id_scan"
+                  aria-required="true"
+                />
+              </p>
+            </div>
+            <div
+              className="formbuilder-file form-group form__input-row field-back_of_id_scan"
+              style={{ display: "block" }}
+            >
+              <p>
+                <label
+                  htmlFor="back_of_id_scan"
+                  className="formbuilder-file-label form__input-row-label"
+                >
+                  Back of ID Scan (Optional)
+                </label>
+              </p>
+              <p>Not required if you uploaded a passport above.</p>
+              <p>
+                <input
+                  type="file"
+                  name="back_of_id_scan"
+                  id="back_of_id_scan"
+                />
+              </p>
+            </div>
+            <div className="formbuilder-text form-group form__input-row field-passport_or_id_number">
+              <label
+                htmlFor="passport_or_id_number"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Passport or ID Number
+              </label>
+              <input
+                type="text"
+                name="passport_or_id_number"
+                id="passport_or_id_number"
+                aria-required="true"
+                required
+              />
+            </div>
+            <div className="formbuilder-text form-group form__input-row field-Phone-Number">
+              <label
+                htmlFor="Phone-Number"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Phone Number
+              </label>
+              <input
+                type="text"
+                name="Phone-Number"
+                id="Phone-Number"
+                aria-required="true"
+                required
+              />
+            </div>
+            <div className="formbuilder-text form-group form__input-row field-occupation">
+              <label
+                htmlFor="occupation"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Occupation
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                name="occupation"
+                id="occupation"
+                aria-required="true"
+                required
+              />
+            </div>
+            <h3>How are you accredited?</h3>
+
+            <div className="formbuilder-radio-group form-group form__input-row field-basis_of_accreditation">
+              <label
+                htmlFor="basis_of_accreditation"
+                className="formbuilder-radio-group-label form__input-row-label"
+              >
+                Basis of Accreditation
+              </label>
+              <div className="radio-group">
+                <div className="formbuilder-radio">
+                  <input
+                    name="basis_of_accreditation"
+                    id="basis_of_accreditation-0"
+                    aria-required="true"
+                    value="income"
+                    type="radio"
+                    required
+                  />
+                  <label htmlFor="basis_of_accreditation-0">
+                    Income of $200k ($300K with spouse) in each of the last 2
+                    years
+                  </label>
+                </div>
+                <div className="formbuilder-radio">
+                  <input
+                    name="basis_of_accreditation"
+                    id="basis_of_accreditation-1"
+                    aria-required="true"
+                    value="net-worth"
+                    type="radio"
+                    required
+                  />
+                  <label htmlFor="basis_of_accreditation-1">
+                    Net worth over $1M
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <h3>Your income in the most recent tax year</h3>
+            <div className="formbuilder-text form-group form__input-row field-income_recent">
+              <label
+                htmlFor="income_recent"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Income
+              </label>
+              <input
+                type="text"
+                name="income_recent"
+                id="income_recent"
+                aria-required="true"
+                required
+              />
+            </div>
+            <div
+              className="formbuilder-file form-group form__input-row field-income_recent_documentation"
+              style={{ display: "block" }}
+            >
+              <p>
+                <label
+                  htmlFor="income_recent_documentation"
+                  className="formbuilder-file-label form__input-row-label"
+                >
+                  Documentation
+                </label>
+              </p>
+              <p>
+                Government tax filings, pay stubs, or a letter from your
+                attorney, accountant, or investment advisor written in the last
+                90 days (upload pdf, docx).
+              </p>
+              <p>
+                <input
+                  type="file"
+                  name="income_recent_documentation"
+                  id="income_recent_documentation"
+                  aria-required="true"
+                />
+              </p>
+            </div>
+
+            <h3>Your income in the previous tax year</h3>
+
+            <div className="formbuilder-text form-group form__input-row field-income_last">
+              <label
+                htmlFor="income_last"
+                className="formbuilder-text-label form__input-row-label"
+              >
+                Income
+              </label>
+              <input
+                type="text"
+                name="income_last"
+                id="income_last"
+                aria-required="true"
+                required
+              />
+            </div>
+            <div
+              className="formbuilder-file form-group form__input-row field-income_last_documentation"
+              style={{ display: "block" }}
+            >
+              <p>
+                <label
+                  htmlFor="income_last_documentation"
+                  className="formbuilder-file-label form__input-row-label"
+                >
+                  Documenation
+                </label>
+              </p>
+              <p>
+                Government tax filings, pay stubs, or a letter from your
+                attorney, accountant, or investment advisor written in the last
+                90 days (upload pdf, docx).
+              </p>
+              <p>
+                <input
+                  type="file"
+                  name="income_last_documentation"
+                  id="income_last_documentation"
+                  aria-required="true"
+                />
+              </p>
+            </div>
+            <div className="formbuilder-checkbox-group form-group form__input-row field-current_year_income">
+              <label
+                htmlFor="current_year_income"
+                className="formbuilder-checkbox-group-label form__input-row-label"
+              >
+                Current Year Income
+              </label>
+              <div className="checkbox-group">
+                <div className="formbuilder-checkbox">
+                  <input
+                    name="current_year_income[]"
+                    id="current_year_income-0"
+                    aria-required="true"
+                    value="true"
+                    type="checkbox"
+                    required
+                  />
+                  <label htmlFor="current_year_income-0">
+                    I expect to earn an income of at least $200k ($300k with
+                    spouse) again this year.{" "}
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+
+          <input type="hidden" name="_captcha" value="false" />
+          <button id="kycSubmitBtn" className="button" type="submit">
+            Submit
+          </button>
+        </form>
       </div>
-
-      <input type="hidden" name="_captcha" value="false" />
-      <button id="kycSubmitBtn" className="button" type="submit">
-        Submit
-      </button>
-    </form>
-    </div>
-      <form className="form" id="tk_approved" onSubmit={(e) => e.preventDefault()}>
+      <form
+        className="form"
+        id="tk_approved"
+        onSubmit={(e) => e.preventDefault()}
+      >
         {/* APPLICANT ADDRESS */}
         <div className="form__input-row">
           <label className="form__input-row-label">Applicant Address</label>
@@ -927,7 +945,7 @@ async function snicker(){
             {/* @note We don't need the default value as it's handled in the useEffect above. */}
             <input
               aria-describedby={`error-${Fields.applicantAddress}`}
-              aria-invalid={errors.applicantAddress ? 'true' : 'false'}
+              aria-invalid={errors.applicantAddress ? "true" : "false"}
               name={Fields.applicantAddress}
               ref={register({
                 validate: (applicantAddress: string): string | boolean => {
@@ -955,7 +973,7 @@ async function snicker(){
           <div className="form__input-row-fieldwrap">
             <input
               aria-describedby={`error-${Fields.erc20Address}`}
-              aria-invalid={errors.erc20Address ? 'true' : 'false'}
+              aria-invalid={errors.erc20Address ? "true" : "false"}
               name={Fields.erc20Address}
               ref={register({
                 validate: (erc20Address: string): string | boolean => {
@@ -985,7 +1003,7 @@ async function snicker(){
               <input
                 className="input__suffix"
                 aria-describedby={`error-${Fields.tributeAmount}`}
-                aria-invalid={errors.tributeAmount ? 'true' : 'false'}
+                aria-invalid={errors.tributeAmount ? "true" : "false"}
                 name={Fields.tributeAmount}
                 onChange={debounce(
                   () =>
@@ -999,16 +1017,16 @@ async function snicker(){
                   validate: (tributeAmount: string): string | boolean => {
                     const amount = Number(stripFormatNumber(tributeAmount));
 
-                    return tributeAmount === ''
+                    return tributeAmount === ""
                       ? FormFieldErrors.REQUIRED
                       : isNaN(amount)
                       ? FormFieldErrors.INVALID_NUMBER
                       : amount <= 0
-                      ? 'The value must be greater than 0.'
+                      ? "The value must be greater than 0."
                       : amount > Number(userERC20Balance)
-                      ? 'Insufficient funds.'
+                      ? "Insufficient funds."
                       : !Number.isInteger(amount)
-                      ? 'The value must be an integer for an ERC20 token.'
+                      ? "The value must be an integer for an ERC20 token."
                       : true;
                   },
                 })}
@@ -1017,7 +1035,7 @@ async function snicker(){
               />
 
               <div className="input__suffix-item">
-                {erc20Details?.symbol || '___'}
+                {erc20Details?.symbol || "___"}
               </div>
             </div>
 
@@ -1044,7 +1062,7 @@ async function snicker(){
           <div className="form__input-row-fieldwrap--narrow">
             <input
               aria-describedby={`error-${Fields.requestAmount}`}
-              aria-invalid={errors.requestAmount ? 'true' : 'false'}
+              aria-invalid={errors.requestAmount ? "true" : "false"}
               name={Fields.requestAmount}
               onChange={debounce(
                 () =>
@@ -1058,14 +1076,14 @@ async function snicker(){
                 validate: (requestAmount: string): string | boolean => {
                   const amount = Number(stripFormatNumber(requestAmount));
 
-                  return requestAmount === ''
+                  return requestAmount === ""
                     ? FormFieldErrors.REQUIRED
                     : isNaN(amount)
                     ? FormFieldErrors.INVALID_NUMBER
                     : amount < 0
-                    ? 'The value must be at least 0.'
+                    ? "The value must be at least 0."
                     : !Number.isInteger(amount)
-                    ? 'The value must be an integer.'
+                    ? "The value must be an integer."
                     : true;
                 },
               })}
@@ -1111,8 +1129,9 @@ async function snicker(){
 
             handleSubmit(getValues());
           }}
-          type="submit">
-          {isInProcess ? <Loader /> : isDone ? 'Done' : 'Submit'}
+          type="submit"
+        >
+          {isInProcess ? <Loader /> : isDone ? "Done" : "Submit"}
         </button>
 
         {/* SUBMIT STATUS */}
@@ -1144,14 +1163,10 @@ function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
   return (
     <Wrap className="section-wrapper">
       <FadeIn>
-        <div className="titlebar">
-
-        </div>
+        <div className="titlebar"></div>
 
         <div className="form-wrapper">
-          <div className="form__description">
-
-          </div>
+          <div className="form__description"></div>
 
           {/* RENDER CHILDREN */}
           {props.children}
