@@ -63,11 +63,18 @@ export default function MemberCard(props: MemberCardProps): JSX.Element {
 
 async function korby(){
   var id = document.getElementById('add_'+member.address);
-  (window as any).members.forEach(function(element: any){
-    console.log(element.wallet)
-    if(element.wallet == member.address) id!.innerHTML = element.legalNameOfPerson
-  });
-  console.log('useEffect ran!', (window as any).members);
+    var runner = setInterval(() => {
+      console.log('waiting on members...');
+      if((window as any).members){
+        (window as any).members.forEach(function(element: any){
+          console.log(element.wallet)
+          if(element.wallet == member.address) id!.innerHTML = element.legalNameOfPerson
+        });
+        clearInterval(runner);
+      }
+    }, 100);
+
+
 }
 
       useEffect(()=>{
