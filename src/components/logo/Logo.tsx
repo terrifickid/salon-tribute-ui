@@ -1,11 +1,11 @@
 interface LogoProps {
-  size?: 'small' | 'medium' | 'large' | '';
+  size?: "small" | "medium" | "large" | "";
 }
 
 export default function Logo(props: LogoProps) {
   return (
-    <div className={`logo ${props.size ? `logo--${props.size}` : ''}`}>
-      Salon
+    <div style={{ fontSize: "1.5rem" }}>
+      <a href="https://salondao.xyz">&laquo; Return</a>
     </div>
   );
 }

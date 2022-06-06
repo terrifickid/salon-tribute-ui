@@ -33,7 +33,17 @@ export default function Routes() {
     <HashRouter>
       {[
         // Index page
-        <Route key="splash" exact path="/" render={() => <GetStarted />} />,
+        <Route
+          key="splash"
+          exact
+          path="/"
+          render={() => (
+            <>
+              <Header />
+              <GetStarted />
+            </>
+          )}
+        />,
         ENABLE_KYC_ONBOARDING && (
           <Route
             key="kyconboard"

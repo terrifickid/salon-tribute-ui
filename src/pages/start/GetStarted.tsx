@@ -61,10 +61,9 @@ export default function GetStarted() {
 
   return (
     <>
-      <GetStartedHeader />
       <Wrap className="section-wrapper">
         <FadeIn>
-          <CenterLogo />
+          <h1 style={{ textAlign: "center", fontSize: "4rem" }}>Salon</h1>
 
           <div className="landing">
             <div className="landing__subtitle">
@@ -72,8 +71,6 @@ export default function GetStarted() {
               <br />
               Collecting contemporary art together.
             </div>
-
-
 
             <div className="landing__button">
               <button
