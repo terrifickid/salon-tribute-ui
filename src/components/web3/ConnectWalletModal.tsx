@@ -89,7 +89,7 @@ export default function ConnectWalletModal(
         <button
           aria-label={`Connect to ${provider[1].display.name}`}
           key={provider[0]}
-          className={`walletconnect__options-button 
+          className={`walletconnect__options-button
             ${
               connected && web3Modal?.cachedProvider === provider[0]
                 ? 'walletconnect__options-button--connected'
@@ -156,6 +156,11 @@ export default function ConnectWalletModal(
     );
   }
 
+  function samurai(){
+    disconnectWeb3Modal();
+    window.location.href='/';
+    
+  }
   /**
    * Allow the modal to close if the previous path was already equal to
    * `memberProfilePath` (e.g. navigated to it normally, loaded cold from brower)
@@ -246,7 +251,7 @@ export default function ConnectWalletModal(
         {connected && (
           <button
             className="walletconnect__disconnect-link-button"
-            onClick={disconnectWeb3Modal}>
+            onClick={samurai}>
             {'Disconnect Wallet'}
           </button>
         )}

@@ -36,9 +36,9 @@ export default function Routes() {
         <Route key="splash" exact path="/" render={() => <GetStarted />} />,
         ENABLE_KYC_ONBOARDING && (
           <Route
-            key="join"
+            key="kyconboard"
             exact
-            path="/join"
+            path="/kyconboard"
             render={() => <KycOnboardingForm />}
           />
         ),
@@ -49,9 +49,9 @@ export default function Routes() {
           render={() => <CreateOnboardingProposal />}
         />,
         <Route
-          key="kyc"
+          key="join"
           exact
-          path="/kyc"
+          path="/join"
           render={() => (
             <>
               <Header />

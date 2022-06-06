@@ -79,7 +79,7 @@ export default function GetStarted() {
               <button
                 className="button"
                 onClick={() => {
-                  history.push(ENABLE_KYC_ONBOARDING ? "/join" : "/kyc");
+                  history.push(ENABLE_KYC_ONBOARDING ? "/join" : "/join");
                 }}
               >
                 Join

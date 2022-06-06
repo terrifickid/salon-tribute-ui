@@ -95,7 +95,7 @@ export function NavHamburger() {
    */
 
   useEffect(() => {
-    
+
     // Clean up on unmount
     return () => {
 
@@ -199,24 +199,14 @@ export function NavHamburger() {
                   <Web3ModalButton />
                 </div>
                 <ul className="nav__list">
-                  {isCurrentMemberOrDelegateConnected && (
-                    <li
-                      onClick={() => {
-                        handleMenuModalClose(false);
-                      }}
-                    >
-                      <NavLink to="/tributes">
-                        <span>Onboarding</span>
-                      </NavLink>
-                    </li>
-                  )}
+                  
                   {!isCurrentMemberOrDelegateConnected && (
                     <li
                       onClick={() => {
                         handleMenuModalClose(false);
                       }}
                     >
-                      <NavLink to="/kyc">
+                      <NavLink to="/join">
                         <span>Onboarding</span>
                       </NavLink>
                     </li>
