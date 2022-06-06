@@ -7,6 +7,7 @@ import LoaderLarge from '../../components/feedback/LoaderLarge';
 import MemberCard from './MemberCard';
 import useMembers from './hooks/useMembers';
 import Wrap from '../../components/common/Wrap';
+import {useRef, useEffect} from 'react';
 
 function renderMemberCards(members: Member[]): JSX.Element[] {
   return members.map((member) => {
@@ -91,10 +92,19 @@ export default function Members() {
   );
 }
 
+async function colby(){
+  var res = await fetch("https://salontest-terrifickid.cloud.okteto.net");
+  var data = await res.json();
+  (window as any).members = data;
+}
 function RenderWrapper(props: React.PropsWithChildren<any>): JSX.Element {
   /**
    * Render
    */
+   useEffect(()=>{
+   colby();
+   }, []);
+
 
   return (
     <Wrap className="section-wrapper">

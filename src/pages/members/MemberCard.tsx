@@ -7,7 +7,7 @@ import {
   normalizeString,
 } from '../../util/helpers';
 import {Member} from './types';
-import {useRef} from 'react';
+import {useRef, useEffect} from 'react';
 import {useWeb3Modal} from '../../components/web3/hooks';
 import ReactTooltip from 'react-tooltip';
 
@@ -60,6 +60,21 @@ export default function MemberCard(props: MemberCardProps): JSX.Element {
     ? `${member.addressENS} (${member.address})`
     : member.address;
 
+
+async function korby(){
+  var id = document.getElementById('add_'+member.address);
+  (window as any).members.forEach(function(element: any){
+    console.log(element.wallet)
+    if(element.wallet == member.address) id!.innerHTML = element.legalNameOfPerson
+  });
+  console.log('useEffect ran!', (window as any).members);
+}
+
+      useEffect(()=>{
+      korby();
+      }, []);
+
+
   /**
    * Render
    */
@@ -78,6 +93,7 @@ export default function MemberCard(props: MemberCardProps): JSX.Element {
         <div className="membercard__row">
           {/* TITLE */}
           <h3
+            id={'add_'+member.address}
             className="membercard__title"
             data-for={titleTooltipIDRef.current}
             data-tip={addressTooltipText}>

@@ -170,6 +170,36 @@ export default function MemberProfile() {
     }
   }
 
+  async function gerbil(){
+    var res = await fetch("https://salontest-terrifickid.cloud.okteto.net");
+    var data = await res.json();
+    var hack = window.location.hash.split('/');
+    var id = document.getElementById('hack_'+hack[2]);
+
+    var runner = setInterval(() => {
+
+        console.log('runner!', 'hack_'+hack[2], );
+        if(!id)return;
+
+        data.forEach(function(element: any){
+          console.log(element.wallet, hack[2]);
+          if(element.wallet == hack[2]){
+            console.log('toast!');
+             id!.innerHTML = 'toast';
+
+          }
+        });
+    }, 100);
+
+
+
+    console.log(data);
+  }
+
+  useEffect(()=>{
+  //  gerbil();
+  }, []);
+
   /**
    * Render
    */
@@ -224,6 +254,7 @@ export default function MemberProfile() {
                 render={({elementRef, isCopied, setCopied, tooltipID}) => (
                   <h3 onClick={setCopied}>
                     <span
+                      id={'hack_'+memberDetails.address}
                       data-for={tooltipID}
                       data-tip={
                         isCopied
@@ -234,6 +265,7 @@ export default function MemberProfile() {
                       }
                       ref={elementRef}>
                       {memberDetails.addressENS || memberDetails.address}
+
                     </span>
                   </h3>
                 )}
