@@ -560,8 +560,8 @@ async function snicker(){
           </label>
           <input
             type="text"
-            name="legal_name_of_person"
-            id="legal_name_of_person"
+            name="legalNameOfPerson"
+            id="legalNameOfPerson"
             aria-required="true"
             required
           />
